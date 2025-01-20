@@ -73,3 +73,9 @@ for i in range(5):
     if i == 3:
         continue
     print(i)
+
+# write a program to print the first 10 numbers and in each iteration print sum of current and previous number
+sum = 0
+for i in range(1, 11):
+    sum += i
+    print(f"Current number: {i}, Sum: {sum}")
