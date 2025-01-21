@@ -94,21 +94,31 @@ Expected Output: {1: 1, 2: 2, 3: 3, 4: 2, 5: 1} '''
 
 # 8. Sort a Dictionary by Values
 
-# dict1 = {'apple': 5, 'banana': 3, 'cherry': 4, 'date': 1, 'elderberry': 2}
-# sorted_dict = dict(sorted(dict1.items(), key=lambda x: x[1]))
+dict1 = {'apple': 5, 'banana': 3, 'cherry': 4, 'date': 1, 'elderberry': 2}
+
+# sorted_dict = dict(sorted(dict1.items(), key=lambda x: x[1], reverse=True))
 # print(sorted_dict)
+
+sorted_dict = {}
+while dict1:
+    max_key = None
+    for key in dict1:
+        if max_key is None or dict1[key] > dict1[max_key]:
+            max_key = key
+    sorted_dict[max_key] = dict1.pop(max_key)
+print(sorted_dict)
 
 # 9. Generate a Pascal’s Triangle
 
-n = 5
-pascal_triangle = [[1]]
-for i in range(1, n):
-    prev_row = pascal_triangle[-1]
-    new_row = [1]
-    for j in range(1, i):
-        new_row.append(prev_row[j - 1] + prev_row[j])
-    new_row.append(1)
-    pascal_triangle.append(new_row)
+# n = 5
+# pascal_triangle = [[1]]
+# for i in range(1, n):
+#     prev_row = pascal_triangle[-1]
+#     new_row = [1]
+#     for j in range(1, i):
+#         new_row.append(prev_row[j - 1] + prev_row[j])
+#     new_row.append(1)
+#     pascal_triangle.append(new_row)
 
 # for row in pascal_triangle:
 #     print(row)
