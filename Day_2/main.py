@@ -1,5 +1,5 @@
 from data_processing.data_cleaning import remove_duplicates
-from utils.math_operations import add, divide, multiply, subtract
+from utils.math_operations import *
 
 '''
 Use the functions from both modules to perform the following tasks: 
@@ -10,13 +10,13 @@ Use the functions from both modules to perform the following tasks:
 num1 = 10
 num2 = 5
 
-print(f"Sum of {num1} and {num2} is {add(num1, num2)}")
+print(add(num1, num2))
 
-print(f"Difference of {num1} and {num2} is {subtract(num1, num2)}")
+print(subtract(num1, num2))
 
-print(f"Product of {num1} and {num2} is {multiply(num1, num2)}")
+print(multiply(num1, num2))
 
-print(f"Quotient of {num1} and {num2} is {divide(num1, num2)}")
+print(divide(num1, num2))
 
 # Task 2. Remove duplicates from a list of data.
 

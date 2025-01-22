@@ -71,9 +71,9 @@ Expected Output: [(3, 4), (2, 6)]
 
 # 6. Find Longest Word in a List
 
-# list7 = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape']
-# longest_word = max(list7, key=len)
-# print(longest_word)
+list7 = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape']
+longest_word = max(list7, key=len)
+print(longest_word)
 
 # 7. Count Element Frequency in Nested Lists
 '''Write a Python program to count the frequency of each element across all nested lists. 
@@ -86,9 +86,9 @@ Expected Output: {1: 1, 2: 2, 3: 3, 4: 2, 5: 1} '''
 # for sublist in list8:
 #     for element in sublist:
 #         if element in frequency_dict:
-#             frequency_dict[element] += 1
+#             frequency_  dict[element] += 1
 #         else:
-#             frequency_dict[element] = 1
+#             frequency_dict[element] = 1     
 
 # print(frequency_dict)
 
@@ -99,14 +99,14 @@ dict1 = {'apple': 5, 'banana': 3, 'cherry': 4, 'date': 1, 'elderberry': 2}
 # sorted_dict = dict(sorted(dict1.items(), key=lambda x: x[1], reverse=True))
 # print(sorted_dict)
 
-sorted_dict = {}
-while dict1:
-    max_key = None
-    for key in dict1:
-        if max_key is None or dict1[key] > dict1[max_key]:
-            max_key = key
-    sorted_dict[max_key] = dict1.pop(max_key)
-print(sorted_dict)
+# sorted_dict = {}
+# while dict1:
+#     max_key = None
+#     for key in dict1:
+#         if max_key is None or dict1[key] > dict1[max_key]:
+#             max_key = key
+#     sorted_dict[max_key] = dict1.pop(max_key)
+# print(sorted_dict)
 
 # 9. Generate a Pascal’s Triangle
 

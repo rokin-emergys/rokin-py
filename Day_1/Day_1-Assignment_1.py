@@ -82,3 +82,4 @@ If the average score is less than 60, the grade is 'F'. '''
 # for student in students:
 #     print(f"{student['name']:<15}{student['exam1']:<10}{student['exam2']:<10}{student['exam3']:<10}{student['average_score']:<10.2f}{student['grade']:<5}")
 
+ 
