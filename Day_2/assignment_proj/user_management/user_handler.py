@@ -1,4 +1,12 @@
 def add_user(users, username, age):
+    """Add a user to the list of users
+    Args:
+        users (list): List of users
+        username (str): Username of the user
+        age (int): Age of the user
+    Returns:
+        str: Message indicating the success or failure of the operation
+    """
     try:
         if any(user['username'] == username for user in users):
             raise Exception(f"User with username {username} already exists")
@@ -11,6 +19,13 @@ def add_user(users, username, age):
         return "Error in input data type"
  
 def remove_user(users, username):
+    """Remove a user from the list of users
+    Args:
+        users (list): List of users
+        username (str): Username of the user to be removed
+    Returns:
+        str: Message indicating the success or failure of the operation
+    """
     try:
         for user in users:
             if user['username'] == username:
@@ -21,6 +36,13 @@ def remove_user(users, username):
         return "Error in input data type"
  
 def get_user_info(users, username):
+    """Get the age of a user from the list of users
+    Args:
+        users (list): List of users
+        username (str): Username of the user
+    Returns:
+        str: Message indicating the success or failure of the operation
+    """
     try:
         for user in users:
             if user['username'] == username:
@@ -30,6 +52,14 @@ def get_user_info(users, username):
         return "Error in input"
  
 def update_user_age(users, username, new_age):
+    """Update the age of a user in the list of users
+    Args:
+        users (list): List of users
+        username (str): Username of the user
+        new_age (int): New age of the user
+    Returns:
+        str: Message indicating the success or failure of the operation
+    """
     try:
         for user in users:
             if user['username'] == username:
@@ -40,6 +70,14 @@ def update_user_age(users, username, new_age):
         return "Error in input datatype"
  
 def update_username(users, username, new_name):
+    """Update the username of a user in the list of users
+    Args:
+        users (list): List of users
+        username (str): Username of the user
+        new_name (str): New username of the user
+    Returns:
+        str: Message indicating the success or failure of the operation
+    """
     try:
         if any(user['username'] == new_name for user in users):
             raise Exception(f"User with username {new_name} already exists")

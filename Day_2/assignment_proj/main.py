@@ -4,39 +4,52 @@ from utils.string_tools import *
  
  
 def string_ops(choice):
+    """Function to perform string operations
+    Args:
+        choice (int): The choice of operation to be performed
+    Returns:
+        None
+    """
     while True:
         match choice:
             case 1:
-                user1=input("Enter the String : ")
+                user1=input(" Enter the String : ")
                 try:
-                    print(f"The length of string is {word_count(user1)}")
+                    print(f" The length of string is {word_count(user1)}")
                 except Exception as e:
                     print(e)
             case 2:
                 try:
-                    user1=input("Enter the String : ")
-                    print(f"The reverse of the string is {reverse_words(user1)}")
+                    user1=input(" Enter the String : ")
+                    print(f" The reverse of the string is {reverse_words(user1)}")
                 except Exception as e:
                     print(e)
             case 3:
                 try:
-                    user1=input("Enter the String : ")
-                    print(f"The string is palindrome : {check_palindrome(user1)}")
+                    user1=input(" Enter the String : ")
+                    print(f" The string is palindrome : {check_palindrome(user1)}")
                 except Exception as e:
                     print(e)
             case 4:
                 try:
-                    user1=input("Enter the String : ")
-                    print(f"The most common word is {find_most_common_word(user1)}")
+                    user1=input(" Enter the String : ")
+                    print(f" The most common word is {find_most_common_word(user1)}")
                 except Exception as e:
                     print(e)
             case _:
                 break
-        choice=int(input("Enter your choice : "))
+        choice=int(input(" Enter your choice : "))
     return None
  
  
 def user_management(users,choice):
+    """Function to manage users
+    Args:
+        users (list): List of users
+        choice (int): The choice of operation to be performed
+    Returns:
+        list: List of users
+    """
     while True:
         match choice:
             case 1:
@@ -83,6 +96,12 @@ def user_management(users,choice):
  
  
 def main_menu():
+    """Function to display the main menu
+    Args:
+        None
+    Returns:
+        None
+    """
     users=[]
     while True:
         try:
