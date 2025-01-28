@@ -19,6 +19,5 @@ print(divide(num1, num2))
 
 data = [1, 2, 3, 4, 5, 1, 2, 3, 4, 5]
 print(f"Data before removing duplicates: {data}")
-
 data = remove_duplicates(data)
 print(f"Data after removing duplicates: {data}")
