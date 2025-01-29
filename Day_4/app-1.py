@@ -75,44 +75,53 @@ def change_password(role, username, new_password):
 def user_interface():
     create_directory_structure()
 
-    st.title("User Registration, Login, and Password Reset")
+    st.title("User Management system")
     
+    # Sidebar for navigation
+    option = st.sidebar.selectbox("Select Option", ['Register New Account', 'Login', 'Password Reset'])
+
     # Register Section
-    st.header("Register New Account")
-    username_reg = st.text_input("Username")
-    password_reg = st.text_input("Password", type="password")
-    email_or_phone_reg = st.text_input("Email or Phone")
-    role = st.selectbox("Role", ['employee', 'admin', 'manager'])
-    
-    if st.button("Register"):
-        if not check_user_exists(role, username_reg):
-            password_hash = hash_password(password_reg)
-            write_user_data(role, username_reg, password_hash, email_or_phone_reg)
-            st.success("Registration successful!")
-        else:
-            st.error("Username already exists!")
+    if option == 'Register New Account':
+        st.header("Register New Account")
+        username_reg = st.text_input("Username")
+        password_reg = st.text_input("Password", type="password")
+        email_or_phone_reg = st.text_input("Email or Phone")
+        role = st.selectbox("Role", ['employee', 'admin', 'manager'])
+        
+        if st.button("Register"):
+            if not check_user_exists(role, username_reg):
+                password_hash = hash_password(password_reg)
+                write_user_data(role, username_reg, password_hash, email_or_phone_reg)
+                st.success("Registration successful!")
+            else:
+                st.error("Username already exists!")
 
     # Login Section
-    st.header("Login")
-    username_login = st.text_input("Username", key="username_login")  # Changed key
-    password_login = st.text_input("Password", type="password", key="password_login")  # Changed key
-    
-    if st.button("Login"):
-        if authenticate_user(role, username_login, password_login):
-            st.success("Login successful!")
-        else:
-            st.error("Invalid credentials!")
+    elif option == 'Login':
+        st.header("Login")
+        username_login = st.text_input("Username", key="username_login")
+        password_login = st.text_input("Password", type="password", key="password_login")
+        role_login = st.selectbox("Role", ['employee', 'admin', 'manager'], key="role_login")  # Added role input for login
+        
+        if st.button("Login"):
+            if authenticate_user(role_login, username_login, password_login):
+                st.success("Login successful!")
+            else:
+                st.error("Invalid credentials!")
 
     # Password Reset Section
-    st.header("Password Reset")
-    username_reset = st.text_input("Username (for password reset)", key="reset_username")
-    new_password = st.text_input("New Password", type="password", key="reset_password")
-    
-    if st.button("Reset Password"):
-        if change_password(role, username_reset, new_password):
-            st.success("Password reset successful!")
-        else:
-            st.error("Username not found!")
+    elif option == 'Password Reset':
+        st.header("Password Reset")
+        username_reset = st.text_input("Username (for password reset)", key="reset_username")
+        new_password = st.text_input("New Password", type="password", key="reset_password")
+        role_reset = st.selectbox("Role", ['employee', 'admin', 'manager'], key="role_reset")  
+        
+        if st.button("Reset Password"):
+            if change_password(role_reset, username_reset, new_password):  
+                st.success("Password reset successful!")
+            else:
+                st.error("Username not found!")
+
 
 if __name__ == "__main__":
     user_interface()
