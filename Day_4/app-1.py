@@ -122,6 +122,5 @@ def user_interface():
             else:
                 st.error("Username not found!")
 
-
 if __name__ == "__main__":
     user_interface()
