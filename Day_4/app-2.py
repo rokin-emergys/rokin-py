@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # Load data
 def load_data():
-    file_path = "cars_clus.csv"  # Ensure this file is in the same directory
+    file_path = "cars_clus.csv"
     df = pd.read_csv(file_path)
     return df
 
@@ -14,20 +14,16 @@ df = load_data()
 st.set_page_config(page_title="Vehicle Data Dashboard", layout="wide")
 st.title("🚗 Vehicle Data Explorer")
 
-# Sidebar controls
 with st.sidebar:
     st.header("Filter Options")
     manufacturers = df["manufact"].unique()
     selected_manufacturer = st.selectbox("Select a Manufacturer", manufacturers)
 
-# Filter data
 filtered_df = df[df["manufact"] == selected_manufacturer]
 
-# Display filtered data
 st.subheader(f"Data for {selected_manufacturer}")
 st.dataframe(filtered_df)
 
-# Visualizations
 col1, col2 = st.columns(2)
 
 with col1:
