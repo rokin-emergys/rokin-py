@@ -2,7 +2,6 @@ import requests
 import json
 from bs4 import BeautifulSoup
 import pandas as pd
-import re
 import time
 import random
 from urllib.parse import quote_plus, urlparse
@@ -24,7 +23,7 @@ def extract_website_name(url):
         domain = urlparse(url).netloc
         if domain.startswith("www."):
             domain = domain[4:]
-        return domain.split(".")[0].capitalize()  # Extract the main website name
+        return domain.split(".")[0].capitalize()
     except:
         return ""
 
@@ -122,8 +121,11 @@ def fetch_bing_news(query, pages=1):
                     result["link"] = a_tag["href"]
                     result["title"] = a_tag.get_text(strip=True)
                     result["media"] = extract_website_name(result["link"])  # Extract website name from URL
-                if timestamp := item.find("span", class_="source", tabindex="0"):
-                    result["timestamp"] = clean_timestamp(timestamp.get_text(strip=True))
+                
+                # Extract timestamp from the span with tabindex="0"
+                timestamp_tag = item.find("span", attrs={"tabindex": "0"})
+                if timestamp_tag:
+                    result["timestamp"] = clean_timestamp(timestamp_tag.get_text(strip=True))
                 
                 results.append(result)
                 
@@ -133,6 +135,7 @@ def fetch_bing_news(query, pages=1):
             print(f"Bing error: {e}")
     
     return results
+
 
 def fetch_yahoo_news(query, pages=1):
     results = []
