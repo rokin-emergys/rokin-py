@@ -1,14 +1,14 @@
 import json
 import asyncio
-import timeit 
+import time
 import aiohttp
 
 def log_execution_time(func):
     async def wrapper(*args,**kargs):
-        start=timeit.default_timer()
+        start=time.time()
         print(f"started feching {args[0]}")
         result=await func(*args,**kargs)
-        total=timeit.default_timer()-start
+        total=time.time()-start
         print(f"completed fetching {args[0]} it took {total} sec")
         return result
     return wrapper
