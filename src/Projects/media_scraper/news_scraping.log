@@ -1,0 +1,36 @@
+2025-02-04 17:08:02,121 - INFO - Successfully saved article: indianexpress_Budget 2025 Speech Highlights One crore more peopl.md
+2025-02-04 17:08:02,121 - INFO - Successfully scraped article from: https://indianexpress.com/article/india/union-budget-2025-live-updates-finance-minister-nirmala-sitharaman-income-tax-rates-slabs-9810807/
+2025-02-04 17:08:02,257 - INFO - Successfully saved article: thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-04 17:08:02,258 - INFO - Successfully scraped article from: https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece
+2025-02-04 17:09:58,648 - INFO - Successfully saved article: indianexpress_Budget 2025 Speech Highlights One crore more peopl.md
+2025-02-04 17:09:58,649 - INFO - Successfully scraped article from: https://indianexpress.com/article/india/union-budget-2025-live-updates-finance-minister-nirmala-sitharaman-income-tax-rates-slabs-9810807/
+2025-02-04 17:09:58,778 - INFO - Successfully saved article: thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-04 17:09:58,778 - INFO - Successfully scraped article from: https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece
+2025-02-04 17:13:00,946 - INFO - Successfully saved article: indianexpress_Budget 2025 Speech Highlights One crore more peopl.md
+2025-02-04 17:13:00,947 - INFO - Successfully scraped article from: https://indianexpress.com/article/india/union-budget-2025-live-updates-finance-minister-nirmala-sitharaman-income-tax-rates-slabs-9810807/
+2025-02-04 17:13:01,132 - INFO - Successfully saved article: thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-04 17:13:01,132 - INFO - Successfully scraped article from: https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece
+2025-02-04 17:14:12,119 - ERROR - Error scraping https://indianexpress.com/article/india/union-budget-2025-live-updates-finance-minister-nirmala-sitharaman-income-tax-rates-slabs-9810807/: 'str' object has no attribute 'replaceall'
+2025-02-04 17:14:12,283 - ERROR - Error scraping https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece: 'str' object has no attribute 'replaceall'
+2025-02-04 17:15:58,580 - ERROR - Error scraping https://indianexpress.com/article/india/union-budget-2025-live-updates-finance-minister-nirmala-sitharaman-income-tax-rates-slabs-9810807/: 'str' object has no attribute 'replaceall'
+2025-02-04 17:15:58,708 - ERROR - Error scraping https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece: 'str' object has no attribute 'replaceall'
+2025-02-04 17:17:18,125 - ERROR - Error scraping https://indianexpress.com/section/cities/bangalore/: Title element not found
+2025-02-04 17:17:18,243 - ERROR - Error scraping https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece: 'str' object has no attribute 'replaceall'
+2025-02-04 17:18:03,151 - ERROR - Error scraping https://indianexpress.com/section/cities/bangalore/: Title element not found
+2025-02-04 17:18:03,285 - INFO - Successfully saved article: thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-04 17:18:03,286 - INFO - Successfully scraped article from: https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece
+2025-02-04 17:19:46,787 - ERROR - Error scraping https://indianexpress.com/article/business/market/stock-market-today-sensex-surges-nifty-9817084/: Content element not found
+2025-02-04 17:19:46,906 - INFO - Successfully saved article: thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-04 17:19:46,907 - INFO - Successfully scraped article from: https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece
+2025-02-04 17:22:07,905 - INFO - Successfully saved article: indianexpress_Sensex surges over 18 Nifty closes at 23739.md
+2025-02-04 17:22:07,906 - INFO - Successfully scraped article from: https://indianexpress.com/article/business/market/stock-market-today-sensex-surges-nifty-9817084/
+2025-02-04 17:22:08,039 - INFO - Successfully saved article: thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-04 17:22:08,040 - INFO - Successfully scraped article from: https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece
+2025-02-04 17:24:32,344 - INFO - Successfully saved article: indianexpress_Budget 2025 Speech Highlights One crore more peopl.md
+2025-02-04 17:24:32,345 - INFO - Successfully scraped article from: https://indianexpress.com/article/india/union-budget-2025-live-updates-finance-minister-nirmala-sitharaman-income-tax-rates-slabs-9810807/
+2025-02-04 17:24:32,454 - INFO - Successfully saved article: thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-04 17:24:32,455 - INFO - Successfully scraped article from: https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece
+2025-02-04 17:28:17,925 - INFO - Successfully saved article: indianexpress_China announces measures against Google other US f.md
+2025-02-04 17:28:17,926 - INFO - Successfully scraped article from: https://indianexpress.com/article/technology/tech-news-technology/china-announces-measures-against-google-other-us-firms-as-trade-tensions-escalate-9816925/?ref=shrt_article_readfull
+2025-02-04 17:28:18,120 - INFO - Successfully saved article: thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-04 17:28:18,121 - INFO - Successfully scraped article from: https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece

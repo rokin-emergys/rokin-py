@@ -4,15 +4,11 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import time
 import random
-from urllib.parse import quote_plus, urlparse
+from urllib.parse import urlparse
 
 def get_headers():
     return {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Referer": "https://www.google.com/",
-        "DNT": "1"
     }
 
 def extract_website_name(url):
@@ -31,9 +27,8 @@ def clean_timestamp(timestamp_text):
     """Cleans and standardizes timestamp text."""
     if not timestamp_text:
         return ""
-    # Remove unwanted phrases and characters
+
     timestamp_text = timestamp_text.replace("·", "").strip()
-    # timestamp_text = timestamp_text.replace("ago", "").strip()
     return timestamp_text
 
 
@@ -43,7 +38,7 @@ def fetch_google_news(query, pages=1):
     
     for page in range(pages):
         start = page * 10
-        url = base_url.format(query=quote_plus(query), start=start)
+        url = base_url.format(query=query, start=start)
         
         try:
             response = requests.get(url, headers=get_headers(), timeout=15)
@@ -67,7 +62,7 @@ def fetch_google_news(query, pages=1):
                 if a_tag := item.find("a"):
                     result["link"] = a_tag["href"].split("&ved=")[0]
                 
-                # Extracting media name, using different classes if necessary
+                # Extracting media name
                 media_tag = item.find("div", class_="MgUUmf") or item.find("span", class_="xQw2L")
                 if media_tag:
                     result["media"] = media_tag.get_text(strip=True)
@@ -97,7 +92,7 @@ def fetch_bing_news(query, pages=1):
     
     for page in range(pages):
         start = page * 10
-        url = base_url.format(query=quote_plus(query), start=start)
+        url = base_url.format(query=query, start=start)
         
         try:
             response = requests.get(url, headers=get_headers(), timeout=25)
@@ -120,10 +115,8 @@ def fetch_bing_news(query, pages=1):
                 if a_tag := item.find("a", class_="title"):
                     result["link"] = a_tag["href"]
                     result["title"] = a_tag.get_text(strip=True)
-                    result["media"] = extract_website_name(result["link"])  # Extract website name from URL
-                
-                # Extract timestamp from the span with tabindex="0"
-                timestamp_tag = item.find("span", attrs={"tabindex": "0"})
+                    result["media"] = extract_website_name(result["link"])
+                timestamp_tag = item.find("span", attrs={"  ": "0"})
                 if timestamp_tag:
                     result["timestamp"] = clean_timestamp(timestamp_tag.get_text(strip=True))
                 
@@ -139,10 +132,10 @@ def fetch_bing_news(query, pages=1):
 
 def fetch_yahoo_news(query, pages=1):
     results = []
-    base_url = f"https://news.search.yahoo.com/search?p={quote_plus(query)}&b={{start}}"
+    base_url = f"https://news.search.yahoo.com/search?p={query}&b={{start}}"
     
     for page in range(pages):
-        start = page * 10 + 1  # for Yahoo's pagination
+        start = page * 10 + 1
         url = base_url.format(start=start)
         
         try:
@@ -151,8 +144,7 @@ def fetch_yahoo_news(query, pages=1):
                 continue
                 
             soup = BeautifulSoup(response.text, "html.parser")
-            
-            # Find all div elements with class 'dd NewsArticle'
+           
             news_articles = soup.find_all("div", class_="dd NewsArticle")
             
             for article in news_articles:
@@ -165,23 +157,23 @@ def fetch_yahoo_news(query, pages=1):
                     "timestamp": ""
                 }
                 
-                # Extracting the link from <a> tag
+                # Extracting the link 
                 link_tag = article.find("a", class_="thmb")
                 if link_tag:
                     result["link"] = link_tag["href"]
                     result["title"] = link_tag.get("title", "").strip()
                 
-                # Extracting the media name from <span> tag with class 's-source'
+                # Extracting the media name 
                 media_tag = article.find("span", class_="s-source")
                 if media_tag:
                     result["media"] = media_tag.get_text(strip=True)
                 
-                # Extracting the timestamp from <span> tag with class 's-time'
+                # Extracting the timestamp 
                 timestamp_tag = article.find("span", class_="s-time")
                 if timestamp_tag:
                     result["timestamp"] = clean_timestamp(timestamp_tag.get_text(strip=True))
                 
-                # Append the result to the list of results
+                # Append the result 
                 results.append(result)
                 
             time.sleep(random.uniform(2, 3))

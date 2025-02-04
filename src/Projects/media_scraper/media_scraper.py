@@ -8,20 +8,21 @@ from urllib.parse import urlparse
 # Configure logging
 logging.basicConfig(
     filename='news_scraping.log',
-    level=logging.ERROR,
+    level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-def sanitize_filename(title):
+def clean_filename(title):
     """Convert title to filesystem-safe name"""
     return re.sub(r'[^\w\s-]', '', title).strip()[:50]
 
 def save_article(title, content, domain):
     """Save content to markdown file with proper structure"""
     try:
-        filename = f"{domain}_{sanitize_filename(title)}.md"
+        filename = f"{domain}_{clean_filename(title)}.md"
         with open(filename, 'w', encoding='utf-8') as f:
             f.write(f"# {title}\n\n{content}")
+        logging.info(f"Successfully saved article: {filename}")
         return True
     except Exception as e:
         logging.error(f"Save failed: {str(e)}")
@@ -59,12 +60,14 @@ def scrape_article(url, title_selector, content_selector):
         converter.ignore_links = True
         converter.ignore_images = True
         md_content = converter.handle(str(content_element))
+        md_content= md_content.replace('_', "")
         
         # Get domain name
         domain = urlparse(url).netloc.split('.')[-2]
         
         # Save article
         if save_article(title, md_content, domain):
+            logging.info(f"Successfully scraped article from: {url}")
             return True
         return False
         
@@ -77,21 +80,21 @@ def scrape_indian_express(url):
     return scrape_article(
         url,
         title_selector='h1[itemprop="headline"]',
-        content_selector='div[itemprop="articleBody"]'
+        content_selector='div.full-details'
     )
 
 def scrape_the_hindu(url):
     """Scrape articles from The Hindu"""
     return scrape_article(
         url,
-        title_selector='h1.title',
-        content_selector='section.articlebodycontent'
+        title_selector='div.storyline h1.title',
+        content_selector='div.storyline div.articlebodycontent[itemprop="articleBody"]'
     )
 
 if __name__ == "__main__":
     # Example usage
-    ie_url = "https://indianexpress.com/article/india/delhi-air-quality-index-today-smog-pollution-9010106/"
-    hindu_url = "https://www.thehindu.com/news/national/karnataka/rotten-eggs-thrown-at-karnataka-cm-siddaramaiah-in-bengaluru/article67526829.ece"
+    ie_url = "https://indianexpress.com/article/technology/tech-news-technology/china-announces-measures-against-google-other-us-firms-as-trade-tensions-escalate-9816925/?ref=shrt_article_readfull"
+    hindu_url = "https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece"
     
     scrape_indian_express(ie_url)
     scrape_the_hindu(hindu_url)
