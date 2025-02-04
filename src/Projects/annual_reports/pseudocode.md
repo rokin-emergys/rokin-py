@@ -1,17 +1,33 @@
 START
 
-Initialize download directory
-Setup web driver
+# Setup Download Directory
+initialize_download_directory()
 
-Define company PDF URLs
+# Configure Web Driver
+driver = setup_webdriver(download_directory)
 
-For each company:
-    Try:
-        Download PDF
-        Extract data from PDF
-        Display extracted information
-    Handle errors if any
+# Define Company PDF URLs
+pdf_urls = {
+    "Airtel": "PDF_URL_1",
+    "Tata": "PDF_URL_2"
+}
 
-Close web driver
+# Process each company's PDF
+for each company, url in pdf_urls:
+    try:
+        # Download PDF
+        filename = download_pdf(driver, url, company)
+        
+        # Extract Data from PDF
+        extracted_data = extract_data(filename)
+        
+        # Display Extracted Information
+        display_results(company, extracted_data)
+    
+    except Exception as e:
+        log_error(company, e)
+
+# Cleanup
+driver.quit()
 
 END
