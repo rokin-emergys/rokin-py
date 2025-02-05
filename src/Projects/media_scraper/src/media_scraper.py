@@ -1,13 +1,23 @@
 import logging
 import re
+import os
 import requests
 from bs4 import BeautifulSoup
 import html2text
 from urllib.parse import urlparse
 
+
+# Determine the project root (assumes this file is inside the 'src' folder)
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Setup logs folder path and ensure it exists
+logs_dir = os.path.join(project_root, "logs")
+os.makedirs(logs_dir, exist_ok=True)
+
+
 # Configure logging
 logging.basicConfig(
-    filename='news_scraping.log',
+    filename=os.path.join(logs_dir, 'news_scraping.log'),
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )

@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import time
 import random
+import os
 from urllib.parse import urlparse
 
 def get_headers():
@@ -116,7 +117,8 @@ def fetch_bing_news(query, pages=1):
                     result["link"] = a_tag["href"]
                     result["title"] = a_tag.get_text(strip=True)
                     result["media"] = extract_website_name(result["link"])
-                timestamp_tag = item.find("span", attrs={"  ": "0"})
+                
+                timestamp_tag = item.find("span", attrs={"tabindex": "0"})
                 if timestamp_tag:
                     result["timestamp"] = clean_timestamp(timestamp_tag.get_text(strip=True))
                 
@@ -211,18 +213,23 @@ def load_config():
 if __name__ == "__main__":
     companies, keywords, num_pages = load_config()
     all_results = []
-
+    start_time = time.time()
     for company in companies:
         for keyword in keywords:
             search_query = f"{company} {keyword}"
             print(f"Fetching news for: {search_query}")
             all_results.extend(fetch_news(search_query, num_pages))
-
+    end_time = time.time()
     if all_results:
         df = pd.DataFrame(all_results)
         df = df[["search_engine", "search_string", "title", "media", "timestamp", "link"]]
-        output_file = "news_results.csv"
+
+        project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        # Define the output directory and ensure it exists
+        output_dir = os.path.join(project_root, "extracted_content")
+        os.makedirs(output_dir, exist_ok=True)
+        output_file = os.path.join(output_dir, "news_results.csv")
         df.to_csv(output_file, index=False)
-        print(f"Saved {len(df)} results to {output_file}")
+        print(f"Saved {len(df)} results to {output_file} time taken{end_time-start_time} secs")
     else:
         print("No results found")
