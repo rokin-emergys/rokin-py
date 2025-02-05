@@ -13,7 +13,6 @@ def get_headers():
     }
 
 def extract_website_name(url):
-    """Extracts website name from a URL."""
     if not url:
         return ""
     try:
@@ -25,10 +24,8 @@ def extract_website_name(url):
         return ""
 
 def clean_timestamp(timestamp_text):
-    """Cleans and standardizes timestamp text."""
     if not timestamp_text:
         return ""
-
     timestamp_text = timestamp_text.replace("·", "").strip()
     return timestamp_text
 
@@ -40,12 +37,10 @@ def fetch_google_news(query, pages=1):
     for page in range(pages):
         start = page * 10
         url = base_url.format(query=query, start=start)
-        
         try:
             response = requests.get(url, headers=get_headers(), timeout=15)
             if response.status_code != 200:
                 continue
-                
             soup = BeautifulSoup(response.text, "html.parser")
             news_items = soup.find_all("div", class_="SoaBEf")
             
@@ -58,22 +53,18 @@ def fetch_google_news(query, pages=1):
                     "media": "",
                     "timestamp": ""
                 }
-                
-                # Extracting link
+    
                 if a_tag := item.find("a"):
                     result["link"] = a_tag["href"].split("&ved=")[0]
                 
-                # Extracting media name
                 media_tag = item.find("div", class_="MgUUmf") or item.find("span", class_="xQw2L")
                 if media_tag:
                     result["media"] = media_tag.get_text(strip=True)
                 
-                # Extracting title
                 title_tag = item.find("div", class_="MBeuO")
                 if title_tag:
                     result["title"] = title_tag.get_text(strip=True)
                 
-                # Extracting timestamp
                 timestamp_tag = item.find("div", class_="LfVVr") or item.find("span", class_="WGvvNb")
                 if timestamp_tag:
                     result["timestamp"] = clean_timestamp(timestamp_tag.get_text(strip=True))
@@ -159,23 +150,19 @@ def fetch_yahoo_news(query, pages=1):
                     "timestamp": ""
                 }
                 
-                # Extracting the link 
                 link_tag = article.find("a", class_="thmb")
                 if link_tag:
                     result["link"] = link_tag["href"]
                     result["title"] = link_tag.get("title", "").strip()
                 
-                # Extracting the media name 
                 media_tag = article.find("span", class_="s-source")
                 if media_tag:
                     result["media"] = media_tag.get_text(strip=True)
                 
-                # Extracting the timestamp 
                 timestamp_tag = article.find("span", class_="s-time")
                 if timestamp_tag:
                     result["timestamp"] = clean_timestamp(timestamp_tag.get_text(strip=True))
                 
-                # Append the result 
                 results.append(result)
                 
             time.sleep(random.uniform(2, 3))
@@ -225,11 +212,12 @@ if __name__ == "__main__":
         df = df[["search_engine", "search_string", "title", "media", "timestamp", "link"]]
 
         project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        # Define the output directory and ensure it exists
         output_dir = os.path.join(project_root, "extracted_content")
         os.makedirs(output_dir, exist_ok=True)
         output_file = os.path.join(output_dir, "news_results.csv")
+
         df.to_csv(output_file, index=False)
+        
         print(f"Saved {len(df)} results to {output_file} time taken{end_time-start_time} secs")
     else:
         print("No results found")

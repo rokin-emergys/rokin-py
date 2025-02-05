@@ -1,15 +1,14 @@
 import logging
-import time
 import re
 import os
-import requests
+import asyncio
+import aiohttp
 from bs4 import BeautifulSoup
 import html2text
 from urllib.parse import urlparse
-
+import time
 
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 logs_dir = os.path.join(project_root, "logs")
 os.makedirs(logs_dir, exist_ok=True)
 
@@ -37,28 +36,38 @@ def save_article(title, content, domain):
         logging.error(f"Save failed: {str(e)}")
         return False
 
-def scrape_article(url, title_selector, content_selector):
+async def fetch_page(session, url, headers):
+    async with session.get(url, headers=headers, timeout=15) as response:
+        response.raise_for_status()
+        return await response.text()
+
+async def scrape_article(url, title_selector, content_selector):
     try:
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+            'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+                           'AppleWebKit/537.36 (KHTML, like Gecko) '
+                           'Chrome/119.0.0.0 Safari/537.36')
         }
+        async with aiohttp.ClientSession() as session:
+            html_text = await fetch_page(session, url, headers)
+    
+        soup = BeautifulSoup(html_text, 'lxml')
         
-        response = requests.get(url, headers=headers, timeout=15)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'lxml')
         title_element = soup.select_one(title_selector)
         if not title_element:
             raise ValueError("Title element not found")
         title = title_element.get_text().strip()
+        
         content_element = soup.select_one(content_selector)
         if not content_element:
             raise ValueError("Content element not found")
-            
+        
         converter = html2text.HTML2Text()
         converter.ignore_links = True
         converter.ignore_images = True
         md_content = converter.handle(str(content_element))
-        md_content= md_content.replace('_', "")
+        md_content = md_content.replace('_', "")
+        
         
         domain = urlparse(url).netloc.split('.')[-2]
         
@@ -71,9 +80,11 @@ def scrape_article(url, title_selector, content_selector):
         logging.error(f"Error scraping {url}: {str(e)}")
         return False
 
-if __name__ == "__main__":
+
+async def main():
     ie_url = "https://indianexpress.com/article/technology/tech-news-technology/china-announces-measures-against-google-other-us-firms-as-trade-tensions-escalate-9816925/?ref=shrt_article_readfull"
     hindu_url = "https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece"
+    
     indianexpress = {
         "title": "h1[itemprop='headline']",
         "content": "div.full-details"
@@ -82,10 +93,17 @@ if __name__ == "__main__":
         "title": "div.storyline h1.title",
         "content": "div.storyline div.articlebodycontent[itemprop='articleBody']"
     }
-    
+    tasks = [
+        scrape_article(ie_url, indianexpress["title"], indianexpress["content"]),
+        scrape_article(hindu_url, thehindu["title"], thehindu["content"])
+    ]
+    results = await asyncio.gather(*tasks)
+    for i, result in enumerate(results, start=1):
+        print(f"Scrape result {i}:", result)
+
+
+if __name__ == "__main__":
     start_time = time.time()
-    scrape_article(ie_url, indianexpress["title"], indianexpress["content"])
-    scrape_article(hindu_url, thehindu["title"], thehindu["content"])
+    asyncio.run(main())
     end_time = time.time()
-    
     print(f"Total execution time: {end_time - start_time:.2f} seconds")

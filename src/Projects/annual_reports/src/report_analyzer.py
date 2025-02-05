@@ -7,11 +7,11 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.options import Options
 from PyPDF2 import PdfReader
 
-# Configuration
-download_dir = os.path.join(os.getcwd(), 'downloads')
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+download_dir = os.path.join(project_root, 'downloads')
 os.makedirs(download_dir, exist_ok=True)
 
-# Selenium WebDriver Setup
+
 def setup_driver():
     options = Options()
     options.add_experimental_option('prefs', {
@@ -21,7 +21,6 @@ def setup_driver():
     })
     return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-# Download PDF
 def download_pdf(driver, url, filename):
     driver.get(url)
     time.sleep(5)
@@ -30,14 +29,13 @@ def download_pdf(driver, url, filename):
     if files:
         latest_file = os.path.join(download_dir, files[0])
         
-        # Remove existing file if it already exists
         if os.path.exists(filename):
             os.remove(filename)
         
         os.rename(latest_file, filename)
 
 
-# Extract Data from PDF
+
 def extract_data(pdf_path):
     patterns = {
         'cin': r'[A-Z]\d{5}[A-Z]{2}\d{4}[A-Z]{3}\d{6}',
@@ -60,7 +58,7 @@ def extract_data(pdf_path):
     
     return results
 
-# Print Results
+
 def print_results(data, company):
     print(f"\n{'='*40}\nResults for {company}\n{'='*40}")
     for key, values in data.items():
@@ -68,12 +66,11 @@ def print_results(data, company):
         for v in values:
             print(f"- {v}")
 
-# Main Execution
 pdf_urls = {
     'Airtel': 'https://assets.airtel.in/teams/simplycms/web/docs/Draft-Annual-Return-FY-2021-22.pdf',
     'Tata': 'https://www.tatamotors.com/wp-content/uploads/2023/10/Form-MGT-7.pdf'
 }
-
+start_time = time.time()
 driver = setup_driver()
 for company, url in pdf_urls.items():
     try:
@@ -83,3 +80,5 @@ for company, url in pdf_urls.items():
     except Exception as e:
         print(f"Error processing {company}: {e}")
 driver.quit()
+end_time = time.time()
+print(f"\nTotal execution time: {end_time - start_time:.2f} seconds")

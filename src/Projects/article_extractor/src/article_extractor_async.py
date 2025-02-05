@@ -2,6 +2,7 @@ import asyncio
 import aiohttp
 from bs4 import BeautifulSoup
 import json
+import os
 import pandas as pd
 import time
 import random
@@ -16,7 +17,7 @@ def random_delay(min_delay, max_delay):
         return wrapper
     return decorator
 
-# Helper functions
+
 def get_headers():
     return {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
@@ -62,21 +63,17 @@ async def process_google(session, query, page):
             "media": "",
             "timestamp": ""
         }
-        # Extracting link
         if a_tag := item.find("a"):
             result["link"] = a_tag["href"].split("&ved=")[0]
         
-        # Extracting media name
         media_tag = item.find("div", class_="MgUUmf") or item.find("span", class_="xQw2L")
         if media_tag:
             result["media"] = media_tag.get_text(strip=True)
         
-        # Extracting title
         title_tag = item.find("div", class_="MBeuO")
         if title_tag:
             result["title"] = title_tag.get_text(strip=True)
         
-        # Extracting timestamp
         timestamp_tag = item.find("div", class_="LfVVr") or item.find("span", class_="WGvvNb")
         if timestamp_tag:
             result["timestamp"] = clean_timestamp(timestamp_tag.get_text(strip=True))
@@ -129,23 +126,19 @@ async def process_yahoo(session, query, page):
             "timestamp": ""
         }
         
-        # Extracting the link 
         link_tag = article.find("a", class_="thmb")
         if link_tag:
             result["link"] = link_tag["href"]
             result["title"] = link_tag.get("title", "").strip()
-        
-        # Extracting the media name 
+         
         media_tag = article.find("span", class_="s-source")
         if media_tag:
             result["media"] = media_tag.get_text(strip=True)
         
-        # Extracting the timestamp 
         timestamp_tag = article.find("span", class_="s-time")
         if timestamp_tag:
             result["timestamp"] = clean_timestamp(timestamp_tag.get_text(strip=True))
         
-        # Append the result 
         results.append(result)
     return results
 
@@ -170,17 +163,6 @@ async def fetch_query(session, query, pages, engines):
             all_results.extend(page_results)
     return all_results
 
-import os
-import pandas as pd
-import time
-import json
-import asyncio
-import aiohttp
-from bs4 import BeautifulSoup
-import random
-from urllib.parse import urlparse
-
-# ... (rest of your imports and code)
 
 async def main():
     with open("config.json") as f:
@@ -207,14 +189,10 @@ async def main():
     if all_results:
         df = pd.DataFrame(all_results)
         df = df[["search_engine", "search_string", "title", "media", "timestamp", "link"]]
-        
-        # Determine the project root directory (one level up from src)
         project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        # Define the output directory for the CSV file
         output_dir = os.path.join(project_root, "extracted_content")
         os.makedirs(output_dir, exist_ok=True)
         
-        # Full path to save the CSV file
         output_file = os.path.join(output_dir, "news_results_async.csv")
         df.to_csv(output_file, index=False)
         
