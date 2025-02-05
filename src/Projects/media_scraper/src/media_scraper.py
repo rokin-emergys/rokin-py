@@ -89,3 +89,4 @@ if __name__ == "__main__":
     end_time = time.time()
     
     print(f"Total execution time: {end_time - start_time:.2f} seconds")
+  

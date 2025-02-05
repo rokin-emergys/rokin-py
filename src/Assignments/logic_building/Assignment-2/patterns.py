@@ -62,4 +62,12 @@ def A_of_stars(n):
                 print(" ", end="")
         print()
 
-A_of_stars(n)
+# A_of_stars(n)
+
+def number_pattern(n):
+    for i in range(n+1):
+        for j in range(1, i+1):
+            print(j, end="")
+        print()
+
+number_pattern(n)
