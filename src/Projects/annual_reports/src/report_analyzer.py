@@ -74,7 +74,7 @@ start_time = time.time()
 driver = setup_driver()
 for company, url in pdf_urls.items():
     try:
-        filename = os.path.join(download_dir, f"{company}_MGT-7.pdf")
+        filename = os.path.join(download_dir, f"{company}.pdf")
         download_pdf(driver, url, filename)
         print_results(extract_data(filename), company)
     except Exception as e:

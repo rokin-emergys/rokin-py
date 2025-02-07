@@ -23,6 +23,7 @@ def get_headers():
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
     }
 
+# for Bing results only
 def extract_website_name(url):
     if not url:
         return ""
@@ -53,7 +54,6 @@ async def process_google(session, query, page):
     html = await fetch_page(session, url, get_headers())
     soup = BeautifulSoup(html, 'html.parser')
     results = []
-    
     for item in soup.find_all("div", class_="SoaBEf"):
         result = {
             "search_engine": "Google",
@@ -66,7 +66,7 @@ async def process_google(session, query, page):
         if a_tag := item.find("a"):
             result["link"] = a_tag["href"].split("&ved=")[0]
         
-        media_tag = item.find("div", class_="MgUUmf") or item.find("span", class_="xQw2L")
+        media_tag = item.find("div", class_="MgUUmf")
         if media_tag:
             result["media"] = media_tag.get_text(strip=True)
         
@@ -125,7 +125,6 @@ async def process_yahoo(session, query, page):
             "media": "",
             "timestamp": ""
         }
-        
         link_tag = article.find("a", class_="thmb")
         if link_tag:
             result["link"] = link_tag["href"]

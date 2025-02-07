@@ -1,0 +1,31 @@
+{
+    "sources": [
+        {
+            "name": "Indian Express",
+            "url": "https://indianexpress.com/article/technology/tech-news-technology/china-announces-measures-against-google-other-us-firms-as-trade-tensions-escalate-9816925/?ref=shrt_article_readfull",
+            "selectors": {
+                "title": "h1[itemprop='headline']",
+                "content": "div.story_details",
+                "img": "span.custom-caption img"  
+            }
+        },
+        {
+            "name": "The Hindu",
+            "url": "https://www.thehindu.com/sport/football/premier-league-arsenal-hammer-man-city-5-1-to-stay-in-title-hunt/article69173901.ece",
+            "selectors": {
+                "title": "div.storyline h1.title",
+                "content": "div.storyline div.articlebodycontent[itemprop='articleBody']",
+                "img": "div.picture.verticle picture source"
+            }
+        },        
+        {
+            "name": "BBC News",
+            "url": "https://www.bbc.com/news/articles/cjexp347yxlo",
+            "selectors": {
+              "title": "h1.sc-518485e5-0.bWszMR",
+              "content": "p.sc-eb7bd5f6-0.fYAfXe",
+              "img": "div[data-testid='image'] img:not(.hide-when-no-script)"
+            }
+        }  
+    ]
+}
