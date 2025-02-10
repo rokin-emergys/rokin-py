@@ -1,30 +1,53 @@
 # Asynchronous News Search Scraper
 
-This project is an asynchronous news search scraper using Python, `aiohttp`, and `BeautifulSoup` to fetch news articles from Google, Bing, and Yahoo.
+This project is an asynchronous news search scraper built with Python, `aiohttp`, and `BeautifulSoup`. It fetches news articles from popular search engines (Google, Bing, and Yahoo) and extracts key information such as titles, timestamps, media sources, and article links. The project is modularized for maintainability, with configuration and helper functions located in the `src/utils/` directory.
+
+---
 
 ## Features
 
-- Supports multiple search engines: Google, Bing, and Yahoo
-- Fetches articles asynchronously for efficiency
-- Extracts titles, timestamps, media sources, and article links
-- Saves results to a CSV file
-- Implements random delays to mimic human browsing
+- **Multi-Engine Support:**  
+  Fetches articles from Google, Bing, and Yahoo.
+
+- **Asynchronous Processing:**  
+  Uses `aiohttp` to query pages concurrently for improved efficiency.
+
+- **Data Extraction:**  
+  Parses HTML with `BeautifulSoup` to extract article titles, timestamps, media sources, and links.
+
+- **Random Delays:**  
+  Implements randomized delays to mimic human browsing behavior.
+
+- **Modular Design:**  
+  Helper functions are organized under the `src/utils/` folder.
+
+- **Dynamic Configuration:**  
+  Search queries and parameters are defined in a `config.json` file.
+
+- **Output:**  
+  Consolidates extracted data into a CSV file saved in the `extracted_content/` directory.
+
+- **Logging:**  
+  Tracks progress and errors with log files stored in the `logs/` directory.
+
+---
 
 ## Prerequisites
 
-Ensure you have Python 3.7 or later installed.
+- **Python 3.7+**  
+- **Required Packages:**
 
-### Required Python Packages
+  Install dependencies with:
 
-Install dependencies using:
+  ```sh
+  pip install aiohttp beautifulsoup4 pandas lxml
+  ```
 
-```sh
-pip install aiohttp beautifulsoup4 pandas lxml
-```
+---
 
 ## Configuration
 
-The script uses a `config.json` file to define search queries. The expected format is:
+The scraper uses a `config.json` file (located in the `src/` directory) to define search queries. The expected format is:
 
 ```json
 {
@@ -34,45 +57,77 @@ The script uses a `config.json` file to define search queries. The expected form
 }
 ```
 
+You can modify this file to change the search parameters as needed.
+
+---
+
 ## Directory Structure
 
 ```
 article_extractor/
-│── logs/                  # Stores log files
-│── extracted_content/      # Stores extracted news results
-│── src/
-│   │── article_extractor.py  # Main script
-│   │── config.json           # Search configuration
-│── Docs/                  # Flowcharts and pseudocode
-│── README.md               # Documentation
+├── Docs/                     
+│   └── pseudocode.txt         # Flowcharts and pseudocode
+├── extracted_content/         # Stores extracted news results (e.g., CSV output)
+├── logs/                     # Stores log files
+└── src/
+    ├── config.json           # Configuration file for search queries
+    ├── main.py  # Main asynchronous scraping script
+    └── utils/                # Utility modules
+        ├── __init__.py       # (Empty file to mark this folder as a package)
+        ├── config_loader.py  # Loads configuration from config.json
+        ├── common.py         # Contains common helper functions (e.g., filename cleaning, saving articles)
+        └── scraper.py  # Contains asynchronous scraping functions using aiohttp and BeautifulSoup
 ```
+
+---
 
 ## Usage
 
-Run the script using:
+To run the scraper, execute the following command from the project root:
 
 ```sh
-python src/article_extractor.py
+python src/main.py
 ```
+
+During execution, you will be prompted to choose which websites to scrape and, optionally, provide custom URLs. If you press Enter without input, the default URLs defined in the configuration will be used.
+
+---
 
 ## How It Works
 
-1. **Fetching Pages**: The script queries news search engines asynchronously.
-2. **Parsing Content**: Extracts relevant information using `BeautifulSoup`.
-3. **Data Cleaning**: Cleans timestamps and extracts domains.
-4. **Saving Results**: Saves extracted data into a structured CSV file in `extracted_content/`.
-5. **Logging**: Tracks progress and errors.
+1. **Fetching Pages:**  
+   The scraper queries news search engines asynchronously using `aiohttp`.
+
+2. **Parsing Content:**  
+   It uses `BeautifulSoup` to parse the HTML content and extract relevant information such as article titles, timestamps, media sources, and links.
+
+3. **Data Cleaning:**  
+   The script cleans timestamps, extracts domain information, and processes HTML content into a suitable format.
+
+4. **Saving Results:**  
+   All extracted data is saved into a CSV file in the `extracted_content/` directory.
+
+5. **Logging:**  
+   Progress and errors are logged in the `logs/` directory for troubleshooting.
+
+---
 
 ## Example Output
 
 A successfully scraped dataset will be saved as:
 
 ```
-extracted_content/news_results_async.csv
+extracted_content/news_results.csv
 ```
+
+Each row in the CSV file contains the search engine used, the search string, the article title, media source, timestamp, and the article link.
+
+---
 
 ## Error Handling
 
-- If an article element is missing, an empty value is assigned.
-- Any network issues or HTTP errors are logged.
+- **Missing Elements:**  
+  If a required article element (e.g., title or content) is missing, an empty value is assigned.
 
+- **Network Issues:**  
+  Any HTTP errors or network issues encountered during scraping are logged.
