@@ -1,74 +1,123 @@
 # News Scraper
 
-This is an asynchronous web scraper built using Python, `aiohttp`, and `BeautifulSoup` to extract news articles from specified websites and save them as Markdown files.
+This project is an **asynchronous** web scraper built using Python, `aiohttp`, and `BeautifulSoup` to extract news articles from specified websites and save them as Markdown files. The scraper is designed for efficiency and maintainability by leveraging asynchronous processing and a modular code structure.
+
+---
 
 ## Features
 
-- Asynchronous fetching of web pages for efficiency
-- Uses `BeautifulSoup` to parse HTML
-- Extracts and saves article titles and content in Markdown format
-- Handles logging for error tracking
-- Cleans and formats extracted content
+- **Asynchronous Fetching:**  
+  Retrieves web pages concurrently using `aiohttp` for improved performance.
+
+- **HTML Parsing:**  
+  Uses `BeautifulSoup` to parse HTML and extract article components (titles, content, images, etc.).
+
+- **Markdown Conversion:**  
+  Converts HTML content into Markdown format using `html2text` for easier reading and portability.
+
+- **Logging:**  
+  Records progress and errors into log files for troubleshooting.
+
+- **Content Cleaning:**  
+  Cleans and formats extracted text and filenames to ensure safe storage.
+
+- **Modular Design:**  
+  Helper functions and configuration logic are organized in the `src/utils/` directory, keeping the main script focused on orchestration.
+
+---
 
 ## Prerequisites
 
-Ensure you have Python 3.7 or later installed.
+Ensure you have **Python 3.7** or later installed.
 
 ### Required Python Packages
 
-Install dependencies using pip:
+Install the dependencies using pip:
 
 ```sh
 pip install aiohttp beautifulsoup4 html2text lxml
 ```
 
+---
+
+## Configuration
+
+By default, the scraper is configured to extract articles from a set of predefined news sources (e.g., [Indian Express](https://indianexpress.com) and [The Hindu](https://www.thehindu.com), among others). To add or modify sources, update the configuration in the `config.json` file (if used) or adjust the selectors and default URLs in the main script or helper modules.
+
+---
+
 ## Directory Structure
 
 ```
 media_scraper/
-|── Docs/                   # Flowcharts and pseudocodes
-│── logs/                   # Stores log files
-│── extracted_content/      # Stores extracted articles
-│── src/ 
-|   |── media_scraper.py    # Main script
-│── README.md               # Documentation
+├── Docs/                     
+│   └── pseudocode.txt         # Flowcharts and pseudocodes
+├── extracted_content/         # Stores extracted articles as Markdown files
+├── logs/                     # Stores log files (e.g., news_scraping.log)
+└── src/
+    ├── config.json           # (Optional) Configuration file for news sources
+    ├── main.py  # Main asynchronous scraping script
+    └── utils/                # Utility modules for the scraper
+        ├── __init__.py       # (Empty; marks this folder as a package)
+        ├── config_loader.py  # Loads configuration from config.json (if used)
+        ├── common.py         # Contains common helper functions (e.g., filename cleaning, saving articles)
+        └── scraper.py  # Contains asynchronous scraping functions using aiohttp and BeautifulSoup
 ```
+
+*Note:* The extracted articles will be saved in the `extracted_content/` directory at the project root—not within `src/`.
+
+---
 
 ## Usage
 
-Run the script using:
+From the project root, run the asynchronous scraper with:
 
 ```sh
-python src/media_scraper.py
+python src/main.py
 ```
+
+During execution, you may be prompted to select which websites to process or to provide custom URLs. If you simply press Enter, the default URL for each source will be used.
+
+---
 
 ## How It Works
 
-1. **Fetching Pages**: The script fetches article pages asynchronously using `aiohttp`.
-2. **Parsing Content**: It extracts the title and content using `BeautifulSoup` and CSS selectors.
-3. **Cleaning and Formatting**: The content is converted to Markdown using `html2text`.
-4. **Saving the Article**: The extracted content is saved in the `extracted_content/` directory.
-5. **Logging**: Logs are stored in `logs/news_scraping.log`.
+1. **Fetching Pages:**  
+   The scraper asynchronously fetches the HTML content of each article page using `aiohttp`.
 
-## Configuration
+2. **Parsing Content:**  
+   Using `BeautifulSoup` and CSS selectors defined for each source, the scraper extracts the article title, content, and optionally an image URL.
 
-The script currently scrapes articles from:
+3. **Content Conversion:**  
+   The extracted HTML is converted into Markdown format using `html2text`.
 
-- [Indian Express](https://indianexpress.com)
-- [The Hindu](https://www.thehindu.com)
+4. **Saving Articles:**  
+   Each article is saved as a Markdown file in the `extracted_content/` directory. Filenames are generated based on the source domain and a cleaned version of the article title.
 
-To add more sources, modify the `main()` function and update the CSS selectors accordingly.
+5. **Logging:**  
+   Progress and errors are logged in `logs/news_scraping.log` for monitoring and troubleshooting.
+
+---
 
 ## Example Output
 
-A successfully scraped article will be saved as:
+A successfully scraped article might be saved as:
 
 ```
 extracted_content/indianexpress_China_announces_measures_against_Google.md
 ```
 
+Each Markdown file contains the article's title, any associated image (if available), and the formatted content.
+
+---
+
 ## Error Handling
 
-- If a title or content selector is incorrect, an error is logged.
-- Any network issues will be caught and logged.
+- **Missing Elements:**  
+  If a required element (e.g., title or content) is missing, the script logs an error and skips the article.
 
+- **Network Issues:**  
+  HTTP errors and network issues are caught and logged.
+
+- **Selector Mismatches:**  
+  Incorrect or outdated CSS selectors will result in an error being logged. Update selectors in the configuration or helper modules as needed.
