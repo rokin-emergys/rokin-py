@@ -381,3 +381,33 @@
 2025-02-07 13:16:12,732 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\thehindu_League Cup Liverpool thrashes Spurs to set up fina.md
 2025-02-07 13:18:40,025 - INFO - Image: https://th-i.thgim.com/public/incoming/akxtdl/article69185322.ece/alternates/LANDSCAPE_1200/PTI02_05_2025_000725A.jpg
 2025-02-07 13:18:40,031 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\thehindu_ISL Mohun Bagan Super Giant eases past Punjab FC.md
+2025-02-10 17:15:28,913 - INFO - Found image URL: https://th-i.thgim.com/public/incoming/5j6wby/article69173902.ece/alternates/LANDSCAPE_1200/2025-02-02T184710Z_250558838_UP1EL221DNMVA_RTRMADP_3_SOCCER-ENGLAND-ARS-MCI-REPORT.JPG
+2025-02-10 17:15:28,924 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\src\extracted_content\thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-10 17:15:29,064 - INFO - Found image URL: https://ichef.bbci.co.uk/news/1536/cpsprodpb/2536/live/f821ba70-e502-11ef-be41-9d8a7ab0ece0.jpg.webp
+2025-02-10 17:15:29,066 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\src\extracted_content\bbc_Casinos high-rises and fraud The BBC visits a biza.md
+2025-02-10 17:15:29,121 - ERROR - Error scraping https://indianexpress.com/article/india/union-budget-2025-live-updates-finance-minister-nirmala-sitharaman-income-tax-rates-slabs-9810807/?ref=l2_home: Content element not found
+2025-02-10 17:17:08,580 - ERROR - Error scraping https://indianexpress.com/article/india/union-budget-2025-live-updates-finance-minister-nirmala-sitharaman-income-tax-rates-slabs-9810807/?ref=l2_home: Content element not found
+2025-02-10 17:18:18,781 - INFO - Found image URL: https://images.indianexpress.com/2025/02/Union-Budget-2025-feature-new.jpg?w=640
+2025-02-10 17:18:18,782 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\src\extracted_content\indianexpress_Budget 2025 Speech Highlights One crore more peopl.md
+2025-02-10 17:23:30,441 - INFO - Found image URL: https://th-i.thgim.com/public/incoming/5j6wby/article69173902.ece/alternates/LANDSCAPE_1200/2025-02-02T184710Z_250558838_UP1EL221DNMVA_RTRMADP_3_SOCCER-ENGLAND-ARS-MCI-REPORT.JPG
+2025-02-10 17:23:30,443 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-10 17:23:31,532 - INFO - Found image URL: https://ichef.bbci.co.uk/news/1536/cpsprodpb/ed58/live/ab799b90-e48d-11ef-a819-277e390a7a08.jpg.webp
+2025-02-10 17:23:31,548 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\bbc_Israel minister tells army to plan for Palestinian.md
+2025-02-10 17:23:31,864 - ERROR - Error scraping https://indianexpress.com/article/technology/tech-news-technology/china-announces-measures-against-google-other-us-firms-as-trade-tensions-escalate-9816925/?ref=shrt_article_readfull: Content element not found
+2025-02-10 17:24:11,183 - INFO - Found image URL: https://th-i.thgim.com/public/incoming/5j6wby/article69173902.ece/alternates/LANDSCAPE_1200/2025-02-02T184710Z_250558838_UP1EL221DNMVA_RTRMADP_3_SOCCER-ENGLAND-ARS-MCI-REPORT.JPG
+2025-02-10 17:24:11,185 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-10 17:24:11,295 - INFO - Found image URL: https://images.indianexpress.com/2025/02/vs-1.jpg?w=640
+2025-02-10 17:24:11,296 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\indianexpress_China announces measures against Google other US f.md
+2025-02-10 17:24:11,329 - INFO - Found image URL: https://ichef.bbci.co.uk/news/1536/cpsprodpb/ed58/live/ab799b90-e48d-11ef-a819-277e390a7a08.jpg.webp
+2025-02-10 17:24:11,330 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\bbc_Israel minister tells army to plan for Palestinian.md
+2025-02-10 17:24:45,634 - INFO - Found image URL: https://th-i.thgim.com/public/incoming/5j6wby/article69173902.ece/alternates/LANDSCAPE_1200/2025-02-02T184710Z_250558838_UP1EL221DNMVA_RTRMADP_3_SOCCER-ENGLAND-ARS-MCI-REPORT.JPG
+2025-02-10 17:24:45,636 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-10 17:24:45,751 - INFO - Found image URL: https://ichef.bbci.co.uk/news/1536/cpsprodpb/ed58/live/ab799b90-e48d-11ef-a819-277e390a7a08.jpg.webp
+2025-02-10 17:24:45,752 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\bbc_Israel minister tells army to plan for Palestinian.md
+2025-02-10 17:24:45,827 - ERROR - Error scraping https://indianexpress.com/article/technology/tech-news-technology/china-announces-measures-against-google-other-us-firms-as-trade-tensions-escalate-9816925/?ref=shrt_article_readfull: Content element not found
+2025-02-10 17:25:34,599 - INFO - Found image URL: https://th-i.thgim.com/public/incoming/5j6wby/article69173902.ece/alternates/LANDSCAPE_1200/2025-02-02T184710Z_250558838_UP1EL221DNMVA_RTRMADP_3_SOCCER-ENGLAND-ARS-MCI-REPORT.JPG
+2025-02-10 17:25:34,601 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\thehindu_Premier League Arsenal hammer Man City 5-1 to stay.md
+2025-02-10 17:25:34,637 - INFO - Found image URL: https://ichef.bbci.co.uk/news/1536/cpsprodpb/ed58/live/ab799b90-e48d-11ef-a819-277e390a7a08.jpg.webp
+2025-02-10 17:25:34,638 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\bbc_Israel minister tells army to plan for Palestinian.md
+2025-02-10 17:25:34,687 - INFO - Found image URL: https://images.indianexpress.com/2025/02/vs-1.jpg?w=640
+2025-02-10 17:25:34,688 - INFO - Saved article: C:\Users\RajeevAken\Documents\python_training\src\Projects\media_scraper\extracted_content\indianexpress_China announces measures against Google other US f.md
