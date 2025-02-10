@@ -60,7 +60,7 @@ media_scraper/
     └── utils/                # Utility modules for the scraper
         ├── __init__.py       # (Empty; marks this folder as a package)
         ├── config_loader.py  # Loads configuration from config.json (if used)
-        ├── common.py         # Contains common helper functions (e.g., filename cleaning, saving articles)
+        ├── helper.py         # Contains common helper functions (e.g., filename cleaning, saving articles)
         └── scraper.py  # Contains asynchronous scraping functions using aiohttp and BeautifulSoup
 ```
 
