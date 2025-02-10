@@ -2,10 +2,8 @@ import os
 import time
 import asyncio
 import logging
-import json
-import aiohttp
 from utils.config_loader import load_config
-from utils.async_scraper import scrape_article
+from Projects.media_scraper.src.utils.scraper import scrape_article
 
 # Set up project directories and logging.
 project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -64,7 +62,6 @@ async def main():
     start_time = time.time()
     results = await asyncio.gather(*tasks)
     
-    # Report individual task results.
     for i, result in enumerate(results, start=1):
         print(f"Scrape result {i}: {result}")
     print(f"Total execution time: {time.time() - start_time:.2f} seconds")

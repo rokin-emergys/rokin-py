@@ -1,7 +1,6 @@
 import os
 import re
 import logging
-from urllib.parse import urlparse
 
 # Ensure that the extracted_content directory exists.
 project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))

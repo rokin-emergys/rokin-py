@@ -4,7 +4,7 @@ import asyncio
 import aiohttp
 import pandas as pd
 from utils.config_loader import load_config
-from utils.async_scraper import fetch_query
+from Projects.article_extractor.src.utils.scraper import fetch_query
 
 def get_dynamic_config():
     """
@@ -73,7 +73,7 @@ async def main(companies, keywords, pages):
         project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         output_dir = os.path.join(project_root, "extracted_content")
         os.makedirs(output_dir, exist_ok=True)
-        output_file = os.path.join(output_dir, "news_results_async.csv")
+        output_file = os.path.join(output_dir, "news_results.csv")
         df.to_csv(output_file, index=False)
         
         print(f"Saved {len(df)} results to {output_file} in {end_time - start_time:.2f} secs")

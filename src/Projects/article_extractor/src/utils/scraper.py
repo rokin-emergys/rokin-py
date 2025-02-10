@@ -21,6 +21,14 @@ async def fetch_page(session, url: str, headers: dict) -> str:
             raise Exception(f"HTTP Error {response.status}")
 
 async def process_google(session, query: str, page: int) -> list:
+    """
+    Process Google search results for the given query and page number.
+    Args:
+        session (aiohttp.ClientSession): The aiohttp session object.
+        query (str): The search query.
+        page (int): The page number.
+    Returns:
+        list: A list of dictionaries containing search results."""
     start = page * 10
     url = f"https://www.google.com/search?q={query}&tbm=nws&start={start}"
     html = await fetch_page(session, url, get_headers())
@@ -50,6 +58,7 @@ async def process_google(session, query: str, page: int) -> list:
     return results
 
 async def process_bing(session, query: str, page: int) -> list:
+    """Process Bing search results for the given query and page number."""
     url = f"https://www.bing.com/news/search?q={query}&first={page*10}"
     html = await fetch_page(session, url, get_headers())
     soup = BeautifulSoup(html, 'html.parser')
@@ -74,6 +83,7 @@ async def process_bing(session, query: str, page: int) -> list:
     return results
 
 async def process_yahoo(session, query: str, page: int) -> list:
+    """Process Yahoo search results for the given query and page number."""
     url = f"https://news.search.yahoo.com/search?p={query}&b={page*10+1}"
     html = await fetch_page(session, url, get_headers())
     soup = BeautifulSoup(html, 'html.parser')
@@ -101,6 +111,14 @@ async def process_yahoo(session, query: str, page: int) -> list:
     return results
 
 async def fetch_engine(session, engine: str, query: str, pages: int) -> list:
+    """Fetch search results from a search engine.
+    Args:
+        session (aiohttp.ClientSession): The aiohttp session object.
+        engine (str): The search engine name.
+        query (str): The search query.
+        pages (int): The number of pages to fetch.
+    Returns:
+        list: A list of dictionaries containing search results."""
     tasks = []
     for page in range(pages):
         if engine == "google":
@@ -115,6 +133,7 @@ async def fetch_engine(session, engine: str, query: str, pages: int) -> list:
     return results
 
 async def fetch_query(session, query: str, pages: int, engines: list) -> list:
+    """Fetch search results for a query from multiple search engines."""
     all_results = []
     tasks = [fetch_engine(session, engine, query, pages) for engine in engines]
     engine_results = await asyncio.gather(*tasks)

@@ -1,4 +1,3 @@
-import asyncio
 import aiohttp
 import logging
 from bs4 import BeautifulSoup
@@ -47,7 +46,6 @@ async def scrape_article(url: str, title_selector: str, content_selector: str, i
     """
     try:
         headers = get_headers()
-        # Use a temporary aiohttp session to fetch the page.
         async with aiohttp.ClientSession() as session:
             html_text = await fetch_page(session, url, headers)
         
