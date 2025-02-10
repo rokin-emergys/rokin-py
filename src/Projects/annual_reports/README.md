@@ -1,106 +1,128 @@
 # PDF Data Extraction and Processing
 
-This script downloads PDF files from specified URLs, extracts specific data (such as CIN, email, phone number, PAN, date, and website) using regular expressions, and prints the results. It processes the PDF files asynchronously, using Python's `asyncio`, `aiohttp`, and `concurrent.futures` modules for efficient parallel downloads and data extraction.
+This project is an asynchronous PDF data extraction tool that downloads PDF files from specified URLs, extracts key data elements using regular expressions, and prints the results. The tool leverages Python’s asynchronous capabilities (`asyncio` and `aiohttp`) together with multi-processing via `concurrent.futures.ProcessPoolExecutor` to efficiently download and process PDFs in parallel. The project has been modularized with helper functions stored in the `src/utils/` directory.
+
+---
 
 ## Features
 
-- Downloads PDF files asynchronously from specified URLs.
-- Extracts specific information from the first 3 pages of each PDF using regular expressions:
-  - CIN (Corporate Identification Number)
-  - Email addresses
-  - Phone numbers (including Indian phone number formats)
-  - PAN (Permanent Account Number)
-  - Date in DD/MM/YYYY format
-  - Website URLs
-- Uses `concurrent.futures.ProcessPoolExecutor` for parallel PDF data extraction.
-- Saves the downloaded PDFs to the `downloads/` directory.
-- Stores extracted data in a CSV file within the `extracted_content/` directory.
+- **Asynchronous PDF Downloads:** Downloads PDF files from specified URLs concurrently.
+- **Data Extraction:** Extracts key information from the first 3 pages of each PDF using regular expressions:
+  - **CIN:** Corporate Identification Number
+  - **Email:** Email addresses
+  - **Phone:** Phone numbers (including various Indian formats)
+  - **PAN:** Permanent Account Number
+  - **Date:** Dates in DD/MM/YYYY format
+  - **Website:** Website URLs (HTTP/HTTPS or WWW)
+- **Parallel Processing:** Uses `ProcessPoolExecutor` to parallelize PDF data extraction.
+- **Modular Design:** Helper functions for downloading, extraction, and printing are located in the `src/utils/` directory.
+- **Output:** Downloads PDFs to the `downloads/` directory and stores extracted data as a CSV file in the `extracted_content/` directory.
+
+---
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.7 or later
 - Required Python packages:
   - `aiohttp` for asynchronous HTTP requests
   - `PyPDF2` for PDF parsing
-  - `pandas` (optional, if you wish to store results in tabular format)
+  - `pandas` for saving results in tabular format
 
-You can install the required dependencies with:
+Install the required dependencies with:
 
 ```bash
-pip install aiohttp PyPDF2
+pip install aiohttp PyPDF2 pandas
 ```
+
+---
 
 ## Directory Structure
 
 ```
-report_analyzer/
-├── Docs/                     # Flowchart and pseudocode
-├── downloads/                # Directory where the downloaded PDFs will be saved
-├── extracted_content/        # Directory where the extracted results (CSV files) will be saved
-├── src/                      # Source folder containing the script
-│   └── report_analyzer.py    # Python script for downloading PDFs and extracting data
+annual_reports/
+├── Docs/                     
+│   └── pseudocode.txt        # Flowcharts and pseudocode
+├── downloads/                # Directory where the downloaded PDFs are saved
+├── extracted_content/        # Directory where the extracted CSV results are saved
+├── src/                      # Source code
+│   ├── utils/                # Helper modules
+│   │   ├── __init__.py
+│   │   ├── downloader.py     # Contains the download_pdf() function
+│   │   ├── extractor.py      # Contains the extract_data() function
+│   │   └── printer.py        # Contains the print_results() function
+│   └── main.py  # Asynchronous main script
 └── README.md                 # This README file
 ```
 
+---
 
 ## Script Overview
 
-### 1. **Download PDFs**
-   The script downloads PDFs from the URLs specified in the `pdf_urls` dictionary. Each company has its associated URL for the PDF document.
+1. **Download PDFs:**  
+   The script downloads PDF files from a dictionary of URLs. Each URL corresponds to a company’s PDF document.
 
-### 2. **Extract Data**
-   The script uses the following regular expressions to extract data from the PDFs:
-   - **CIN:** Corporate Identification Number.
-   - **Email:** Email addresses.
-   - **Phone:** Phone numbers (including Indian formats).
-   - **PAN:** Permanent Account Number (PAN).
-   - **Date:** Date in DD/MM/YYYY format.
-   - **Website:** Website URLs (HTTP/HTTPS or WWW).
+2. **Extract Data:**  
+   It uses regular expressions to extract specific data elements:
+   - **CIN:** Corporate Identification Number
+   - **Email:** Email addresses
+   - **Phone:** Phone numbers
+   - **PAN:** Permanent Account Number
+   - **Date:** Dates in DD/MM/YYYY format
+   - **Website:** Website URLs
 
-### 3. **Parallel Processing**
-   - The script utilizes Python's `asyncio` and `aiohttp` for asynchronous downloading of PDFs.
-   - Data extraction is parallelized using `ProcessPoolExecutor` for efficient multi-process execution.
+3. **Parallel Processing:**  
+   - **Asynchronous Downloads:** The script uses `asyncio` and `aiohttp` to download PDFs concurrently.
+   - **Multi-Process Data Extraction:** Data extraction is parallelized using `ProcessPoolExecutor`.
 
-### 4. **Results**
-   - Extracted data is printed on the console, showing the results categorized by company and type of information (e.g., CIN, email, etc.).
-   - The results are saved to a CSV file in the `extracted_content/` directory.
+4. **Results:**  
+   - Extracted data is printed to the console with the results categorized by company and data type.
+   - A CSV file containing the extracted data is saved in the `extracted_content/` directory.
+
+---
 
 ## How to Use
 
-1. **Clone or Download** the repository to your local machine.
+1. **Clone or Download the Repository:**
 
-2. **Ensure Dependencies** are installed by running:
-   
+   Clone or download the repository to your local machine.
+
+2. **Install Dependencies:**
+
+   Ensure that all required Python packages are installed by running:
+
    ```bash
-   pip install aiohttp PyPDF2
+   pip install aiohttp PyPDF2 pandas
    ```
 
-3. **Run the Script**:
+3. **Configure the URLs (Optional):**
+
+   If needed, update the `pdf_urls` dictionary in the script (inside `src/report_analyzer_async.py`) to add or remove companies and their associated PDF URLs. For example:
+
+   ```python
+   pdf_urls = {
+       'Airtel': 'https://assets.airtel.in/teams/simplycms/web/docs/Draft-Annual-Return-FY-2021-22.pdf',
+       'Tata': 'https://www.tatamotors.com/wp-content/uploads/2023/10/Form-MGT-7.pdf'
+   }
+   ```
+
+4. **Run the Script:**
+
+   From the project root, run the asynchronous script with:
 
    ```sh
-   python src/report_analyzer.py
+   python src/main.py
    ```
 
-4. **Download Location**:
-   - The downloaded PDFs will be saved in the `downloads/` directory.
-   - The results (CSV file) will be saved in the `extracted_content/` directory.
+5. **Output Locations:**
 
-5. **Configure the URLs** (Optional):
-   - Modify the `pdf_urls` dictionary in the script to add or remove companies and their associated PDF URLs.
+   - **Downloaded PDFs:** Saved in the `downloads/` directory.
+   - **Extracted Data:** The CSV file containing the extracted data is saved in the `extracted_content/` directory.
 
-### Example `pdf_urls` Structure:
-
-```python
-pdf_urls = {
-    'Company Name': 'https://example.com/your-pdf-url.pdf'
-}
-```
-
-Add or remove companies as needed, and update their URLs accordingly.
+---
 
 ## Output Example
 
-For each company, the script will print results similar to:
+For each company, the script prints results similar to:
 
 ```
 ========================================
@@ -127,9 +149,16 @@ WEBSITE (1 found):
 - https://www.airtel.in
 ```
 
-Additionally, the extracted results will be saved in the `extracted_content/` directory as `news_results_async.csv`.
+Additionally, the extracted results are saved as a CSV file in the `extracted_content/` directory.
+
+---
 
 ## Notes
 
-- The script processes only the first 3 pages of each PDF. This can be adjusted by modifying the range in the `extract_data()` function.
-- The regular expressions used for extracting data may need to be adjusted depending on the specific formatting of the PDFs you're working with.
+- **Page Processing:**  
+  The script processes only the first 3 pages of each PDF. You can adjust this behavior by modifying the page range in the `extract_data()` function.
+
+- **Regular Expressions:**  
+  The regular expressions used for data extraction may need adjustment based on the formatting of the PDFs you are working with.
+
+---
