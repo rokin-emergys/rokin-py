@@ -4,7 +4,7 @@ from PyPDF2 import PdfReader
 # Define regex patterns for extracting specific data
 PATTERNS = {
     'cin': r'[A-Z]\d{5}[A-Z]{2}\d{4}[A-Z]{3}\d{6}',
-    'email': r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}',
+    'email': r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}',
     'phone': r'(\+91[-\s]?[6-9]\d{9}|[6-9]\d{9}|\d{2,5}[-\s]?\d{5,8})',
     'pan': r'\b[A-Z]{5}[0-9]{4}[A-Z]\b',
     'date': r'\b(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}\b',
