@@ -27,7 +27,7 @@ def extract_data(pdf_path: str) -> dict:
     Raises:
         Exception: If an error occurs while reading the PDF.
     """
-    results = {}
+    results = {key: set() for key in PATTERNS}
     
     try:
         reader = PdfReader(pdf_path)
