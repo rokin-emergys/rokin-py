@@ -31,7 +31,7 @@ async def scrape_article(url: str, title_selector: str, content_selector: str, i
     
     - Fetches the HTML content.
     - Parses the content using BeautifulSoup.
-    - Extracts title, content, and (optionally) image URL.
+    - Extracts title, content, and image URL.
     - Converts HTML to Markdown using html2text.
     - Saves the article using save_article().
     
