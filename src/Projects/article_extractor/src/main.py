@@ -4,7 +4,7 @@ import asyncio
 import aiohttp
 import pandas as pd
 from utils.config_loader import load_config
-from Projects.article_extractor.src.utils.scraper import fetch_query
+from utils.scraper import fetch_query
 
 def get_dynamic_config():
     """

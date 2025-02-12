@@ -79,7 +79,7 @@ async def process_bing(session, query: str, page: int) -> list:
         timestamp_tag = item.find("span", attrs={"tabindex": "0"})
         if timestamp_tag:
             result["timestamp"] = clean_timestamp(timestamp_tag.get_text(strip=True))
-        results.append(result)
+        results.append(result)  
     return results
 
 async def process_yahoo(session, query: str, page: int) -> list:
@@ -133,7 +133,18 @@ async def fetch_engine(session, engine: str, query: str, pages: int) -> list:
     return results
 
 async def fetch_query(session, query: str, pages: int, engines: list) -> list:
-    """Fetch search results for a query from multiple search engines."""
+    """Fetch search results for a query from multiple search engines.
+    This function asynchronously fetches search results from multiple 
+    search engines in parallel. It calls `fetch_engine` for each search 
+    engine in the provided list and gathers the results.
+    Args:
+        session (aiohttp.ClientSession): The aiohttp session object used for making requests.
+        query (str): The search query string.
+        pages (int): The number of pages to fetch from each search engine.
+        engines (list): A list of search engine names (e.g., ["google", "bing", "yahoo"]).
+    Returns:
+        list: A combined list of search results from all specified search engines.
+    """
     all_results = []
     tasks = [fetch_engine(session, engine, query, pages) for engine in engines]
     engine_results = await asyncio.gather(*tasks)
